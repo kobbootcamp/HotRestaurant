@@ -10,7 +10,6 @@
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
         crossorigin="anonymous"></script>
-    <script src="hot-restaurant.js"></script>
 
 </head>
 
@@ -58,3 +57,68 @@
             </div>
         </footer>
     </div>
+</body>
+<script type="text/javascript">
+
+    function runTable() {
+
+        var currentURL = window.location.origin;
+
+        $.ajax({ url: currentURL + "/api/tables", method: "GET" })
+            .done(function (tableData) {
+
+                for (var i = 0; i < tableData.length; i++) {
+
+                    var tableSection = $("<div>");
+                    tableSection.addClass('list');
+                    tableSection.attr('id', 'tableList-' + i + 1)
+                    $('#tableSection').append(tableSection);
+
+                    var tableNumber = i + 1;
+
+                    $("#tableList-" + i + 1).append('<h2><span class="label label-primary">' + tableNumber + "</span> | " + tableData[i].guestId + "</h2>");
+                }
+            });
+    }
+
+    function runWaitList() {
+        var currentURL = window.location.origin;
+
+        $.ajax({ url: currentURL + "/api/waitlist", method: "GET" })
+            .done(function (waitlistData) {
+
+                for (var i = 0; i < waitlistData.length; i++) {
+
+                    var waitSection = $("<div>");
+                    waitSection.addClass('area');
+                    waitSection.attr('id', 'waitlistArea-' + i + 1)
+                    $('#waitSection').append(waitSection);
+
+                    var tableNumber = i + 1;
+
+                    $("#waitlistArea-" + i + 1).append('<h2><span class="label label-primary">' + tableNumber + "</span> | " + waitlistData[i].guestId + "</h2>");
+                }
+            });
+    }
+
+    function clearTable() {
+
+        var currentURL = window.location.origin;
+        $.ajax({ url: currentURL + "/api/clear", method: "POST" })
+
+    }
+
+    $("#clear").on('click', function () {
+        alert("Clearing...");
+        clearTable();
+
+        location.reload();
+    })
+
+    runTable();
+    runWaitList();
+
+
+</script>
+
+</html>

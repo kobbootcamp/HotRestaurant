@@ -60,3 +60,7 @@ app.post("/api/waitlist",function(req,res){
     waiting.push(newObj);
     res.json(newObj);
 });
+
+app.post("/api/clear",function(req,res){
+    sitting = [];
+});
