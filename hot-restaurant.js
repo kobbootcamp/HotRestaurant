@@ -1,3 +1,5 @@
+window.onload=function(){
+
 var express = require("express");
 var path = require("path");
 
@@ -49,6 +51,8 @@ var waiting = [
     }
 ];
 
+
+
 $("#submitBtn").on("click", function(){
     event.preventDefault();
     var newObj = {
@@ -60,13 +64,17 @@ $("#submitBtn").on("click", function(){
     if(sitting.length>=5){
         $.post("api/waitlist",newObj)
         .then(function(data) {
-            alert("You have been added to the waiting list")
+            alert("You have been added to the waiting list");
+            // waiting.push(newObj);
         });
     }
     else if (sitting.length<5){
         $.post("api/tables",newObj)
         .then(function(data) {
-            alert("You have been added to a table")
+            alert("You have been added to a table");
+            // sitting.push(newObj)
         });
     }
 });
+
+};
