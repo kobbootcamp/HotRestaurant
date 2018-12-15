@@ -49,3 +49,24 @@ var waiting = [
     }
 ];
 
+$("#submitBtn").on("click", function(){
+    event.preventDefault();
+    var newObj = {
+        name:$("#name").val().trim(),
+        phone:$("#phone").val().trim(),
+        email:$("#email").val().trim(),
+        guestId:$("#guestId").val().trim()
+    };
+    if(sitting.length>=5){
+        $.post("api/waitlist",newObj)
+        .then(function(data) {
+            alert("You have been added to the waiting list")
+        });
+    }
+    else if (sitting.length<5){
+        $.post("api/tables",newObj)
+        .then(function(data) {
+            alert("You have been added to a table")
+        });
+    }
+});
