@@ -58,7 +58,24 @@
                 <button type="submit" id="submitBtn" class="btn btn-primary">Submit</button>
               </form>
     </div>
-    <script>
+<script>
+var sitting = [
+    {
+        name:"Stevey Boye",
+        phone:"1234567890",
+        email:"asjldkvhasdlkg@kljsh.com",
+        guestId:"123456"
+    }
+];
+
+var waiting = [
+    {
+        name:"Big Ben",
+        phone:"87235623489",
+        email:"iurlg@lairsj.com",
+        guestId:"3427856"
+    }
+];
     $("#submitBtn").on("click", function(){
         event.preventDefault();
         var newObj = {
@@ -68,17 +85,17 @@
             guestId:$("#guestId").val().trim()
         };
         if(sitting.length>=5){
-            $.post("api/waitlist",newObj)
+            waiting.push(newObj);
+            $.post("/api/waitlist",newObj)
             .then(function(data) {
                 alert("You have been added to the waiting list");
-                // waiting.push(newObj);
             });
         }
         else if (sitting.length<5){
-            $.post("api/tables",newObj)
+            sitting.push(newObj)
+            $.post("/api/tables",newObj)
             .then(function(data) {
                 alert("You have been added to a table");
-                // sitting.push(newObj)
             });
         }
     });

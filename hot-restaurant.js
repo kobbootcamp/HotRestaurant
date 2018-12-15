@@ -1,5 +1,3 @@
-window.onload=function(){
-
 var express = require("express");
 var path = require("path");
 
@@ -51,30 +49,14 @@ var waiting = [
     }
 ];
 
-
-
-$("#submitBtn").on("click", function(){
-    event.preventDefault();
-    var newObj = {
-        name:$("#name").val().trim(),
-        phone:$("#phone").val().trim(),
-        email:$("#email").val().trim(),
-        guestId:$("#guestId").val().trim()
-    };
-    if(sitting.length>=5){
-        $.post("api/waitlist",newObj)
-        .then(function(data) {
-            alert("You have been added to the waiting list");
-            // waiting.push(newObj);
-        });
-    }
-    else if (sitting.length<5){
-        $.post("api/tables",newObj)
-        .then(function(data) {
-            alert("You have been added to a table");
-            // sitting.push(newObj)
-        });
-    }
+app.post("/api/tables",function(req,res){
+    var newObj = req.body;
+    sitting.push(newObj);
+    res.json(newObj);
 });
 
-};
+app.post("/api/waitlist",function(req,res){
+    var newObj = req.body;
+    waiting.push(newObj);
+    res.json(newObj);
+});
